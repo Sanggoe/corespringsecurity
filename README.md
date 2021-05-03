@@ -11,9 +11,78 @@
 1. 프로젝트 명 : core-spring-security
 2. 프로젝트 기본 구성
    * 의존성 설정, 환경 설정, UI 화면 구성, 기본 CRUD 기능
-   * 스프링 시큐맃티 보안 기능을 점진적으로 구현 및 완성
+   * 스프링 시큐리티 보안 기능을 점진적으로 구현 및 완성
 3. Springboot, Spring MVC, Spring Data JPA
 4. 프로그램 설치
    * DB - Postgresql Serverop
 
 <br/>
+
+* Controller 파일들 생성
+* Config 파일 생성
+* html View 파일들 생성
+
+<br/>
+
+<br/>
+
+### # 02. 메뉴 권한 및 WebIgnore 설정
+
+> js / css / image 파일 등 보안 필터를 적용할 필요가 없는 리소스를 설정
+
+* 
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
