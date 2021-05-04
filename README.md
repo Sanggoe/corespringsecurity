@@ -30,13 +30,51 @@
 
 > js / css / image 파일 등 보안 필터를 적용할 필요가 없는 리소스를 설정
 
-* 
+```java
+@Override
+public void configure(WebSecurity web) throws Exception {
+    web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+}
+```
+
+<br/>
+
+### # 04. Form 인증 – User 등록 / PasswordEncoder
+
+* 비밀번호를 안전하게 암호화 하도록 제공
+* Spring Security 5.0 이전에는 기본 PasswordEncoder 가 평문을 지원하는 NoOpPasswordEncoder
+
+<br/>
+
+#### 생성
+
+```java
+PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder()
+```
+
+* 여러 개의 PasswordEncoder 유형을 선언한 뒤, 상황에 맞게 선택해서 사용할 수 있도록 지원하는 Encoder.
+
+<br/>
+
+#### 암호화 포맷 : {id}encodedPassword
+
+* 알고리즘 종류 : bcrypt, noop, pbkdf2, scrypt, sha256
+* 기본 포맷은 Bcrypt : {bcrypt}$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM/BG
+
+<br/>
+
+#### 인터페이스
+
+* encode(password)
+  * 패스워드 암호화
+* matches(rawPassword, encodedPassword)
+  * 패스워드 비교
 
 <br/>
 
 <br/>
 
-<br/>
+
 
 <br/>
 
