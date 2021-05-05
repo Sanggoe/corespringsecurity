@@ -98,9 +98,32 @@ public UserDetails loadUserByUsername(String username) throws UsernameNotFoundEx
 
 <br/>
 
+### # 06. Form 인증 – CustomAuthenticationProvider
+
+
+
+![image-20210505153958846](./images/image-20210505153958846.png)
+
+```java
+public Authentication authenticate(Authentication auth) throws AuthenticationException {
+	String loginId = auth.getName();
+    String passwd = (String) auth.getCredentials();
+    
+    UserDetails userDetails = uerDetailsService.loadUserByUsername(loginId);
+
+    if (userDetails == null || !passwordEncoder.matches(passwd, userDetails.getPassword())) {
+		throw new BadCredentialsException("Invalid password");
+	}
+
+    return new UsernamePasswordAuthenticationToken(userDetails.getUser(), null, userDetails.getAuthorities());
+}
+```
+
 <br/>
 
 <br/>
+
+
 
 <br/>
 
