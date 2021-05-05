@@ -74,7 +74,25 @@ PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPassw
 
 <br/>
 
+### # 05. Form 인증 – CustomUserDetailsService
 
+> DB로부터 사용자를 직접 조회하고, 인증을 처리하도록!
+
+![image-20210505133642574](./images/image-20210505133642574.png)
+
+```java
+public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	Account account = userRepository.findByUsername(username);
+
+    if (account == null) {
+		throw new UsernameNotFoundException("No user found with username: " + username);	}
+    
+	// 권한
+    ArrayList<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
+    roles.add(new SimpleGrantedAuthority(account.getRole()));
+	return new AccountContext(account, roles);
+}
+```
 
 <br/>
 
