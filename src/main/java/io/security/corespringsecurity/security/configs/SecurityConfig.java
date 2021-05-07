@@ -47,8 +47,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/messages").hasRole("MANAGER")
                 .antMatchers("/config").hasRole("ADMIN")
                 .anyRequest().authenticated()
-                .and()
-                .formLogin();
+        .and()
+                .formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/login_proc")
+                .defaultSuccessUrl("/")
+                .permitAll()
+        ;
     }
 
     // password 암호화 해주는 객체 반환
