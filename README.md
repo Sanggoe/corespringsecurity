@@ -142,6 +142,27 @@ public void configure(HttpSecurity http) throws Exception {
 
 <br/>
 
+### # 08. Form 인증 - 로그아웃 및 화면 보안 처리
+
+* 로그아웃 방법
+  * \<form> 태그를 사용해서 POST로 요청
+  * \<a> 태크를 사용해서 GET 으로 요청 – SecurityContextLogoutHandler 활용
+
+* 인증 여부에 따라 로그인/로그아웃 표현
+  * \<li sec:authorize="isAnonymous()">\<a th:href="@{/login}">로그인\</a>\</li>
+  * \<li sec:authorize="isAuthenticated()">\<a th:href="@{/logout}">로그아웃\</a>\</li>
+
+```java
+@GetMapping(value = "/logout")
+public String logout(HttpServletRequest request, HttpServletResponse response) {
+	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	if (auth != null) {
+		new SecurityContextLogoutHandler().logout(request, response, auth);
+	}
+	return "redirect:/login";
+}
+```
+
 <br/>
 
 <br/>
