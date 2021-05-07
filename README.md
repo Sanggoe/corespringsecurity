@@ -167,9 +167,34 @@ public String logout(HttpServletRequest request, HttpServletResponse response) {
 
 <br/>
 
+### # 08. Form 인증 – WebAuthenticationDetails AuthenticationDetailsSource
+
+![image-20210507181925826](./images/image-20210507181925826.png)
+
+* Authentication객체는 details라는 속성을 가지고 있다.
+* 이 속성에 WebAuthenticationDetails라는 객체가 저장되어 있다.
+* 이 객체는 request 라는 객체를 통해서 얻어온 추가적인 파라미터 값들을 저장하고 있다.
+
+<br/>
+
+#### WebAuthenticationDetails
+
+> 사용자가 추가로 전달하는 파라미터들을 얻어서, 저장하는 역할
+
+* 인증 과정 중 전달된 데이터를 저장
+* Authentication의 details 속성에 저장
+
+<br/>
+
+#### AuthenticationDetailsSource
+
+> WebAuthenticationDetails 객체를 생성
+
 <br/>
 
 <br/>
+
+
 
 <br/>
 
