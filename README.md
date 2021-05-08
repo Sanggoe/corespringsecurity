@@ -230,6 +230,31 @@ public void onAuthenticationSuccess(HttpServletRequest request, HttpServletRespo
 
 <br/>
 
+### # 09. Form 인증 – CustomAuthenticationFailureHandler
+
+> 인증에 실패 시 수행하는 FailureHandler
+
+![image-20210508211439761](./images/image-20210508211439761.png)
+
+<br/>
+
+#### SecurityConfig
+
+```java
+@Override
+public void configure(HttpSecurity http) throws Exception {
+    http.formLogin().failureHandler(CustomAuthenticationFailureHandler())
+}
+```
+
+<br/>
+
+#### CustomAuthenticationSuccessHandler
+
+```java
+
+```
+
 <br/>
 
 <br/>
