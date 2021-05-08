@@ -194,11 +194,39 @@ public String logout(HttpServletRequest request, HttpServletResponse response) {
 
 <br/>
 
+### # 09. Form 인증 – CustomAuthenticationSuccessHandler
 
+> 인증에 성공 시 수행하는 SuccessHandler
 
 <br/>
 
+#### SecurityConfig
+
+```java
+@Override
+public void configure(HttpSecurity http) throws Exception {
+    http.formLogin().successHandler(CustomAuthenticationSuccessHandler())
+}
+```
+
 <br/>
+
+#### CustomAuthenticationSuccessHandler
+
+```java
+@Override
+public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
+	setDefaultTargetUrl("/");
+
+	SavedRequest savedRequest = requestCache.getRequest(request, response);
+    if (savedRequest != null) {
+    	String targetUrl = savedRequest.getRedirectUrl();
+        redirectStrategy.sendRedirect(request, response, targetUrl);
+	} else {
+    	redirectStrategy.sendRedirect(request, response, getDefaultTargetUrl());
+	}     
+}
+```
 
 <br/>
 
