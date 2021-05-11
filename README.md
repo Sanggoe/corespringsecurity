@@ -230,7 +230,7 @@ public void onAuthenticationSuccess(HttpServletRequest request, HttpServletRespo
 
 <br/>
 
-### # 09. Form 인증 – CustomAuthenticationFailureHandler
+### # 10. Form 인증 – CustomAuthenticationFailureHandler
 
 > 인증에 실패 시 수행하는 FailureHandler
 
@@ -252,16 +252,34 @@ public void configure(HttpSecurity http) throws Exception {
 #### CustomAuthenticationSuccessHandler
 
 ```java
-
+@Override
+public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+    String errorMessage = "Invalid Username or Password";
+    if (exception instanceof BadCredentialsException) {
+    	errorMessage = "Invalid Username or Password";
+    } else if (exception instanceof InsufficientAuthenticationException) {
+    	errorMessage = "Invalid Secret Key";
+	}
+    setDefaultFailureUrl("/login?error=true&exception=" + errorMessage);
+	super.onAuthenticationFailure(request, response, exception);
+}
 ```
 
 <br/>
 
 <br/>
 
-<br/>
+### # 11. Form 인증 - Access Denied
+
+> 인증 거부
 
 <br/>
+
+#### SecurityConfig
+
+<br/>
+
+#### AccessDeniedHandler
 
 <br/>
 

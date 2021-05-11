@@ -35,4 +35,11 @@ public class LoginController {
 
         return "redirect:/login";
     }
+
+    @GetMapping("/denied")
+    public String accessDeniedString(@RequestParam(value = "exception", required = false) String exception, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object account = authentication.getPrincipal();
+        model.addAttribute("username", account)
+    }
 }
