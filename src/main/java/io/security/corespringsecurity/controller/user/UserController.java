@@ -31,10 +31,10 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public String createUser(AccountDto accoutDto) {
+    public String createUser(AccountDto accountDto) {
 
         ModelMapper modelMapper = new ModelMapper();
-        Account account = modelMapper.map(accoutDto, Account.class);
+        Account account = modelMapper.map(accountDto, Account.class);
         account.setPassword(passwordEncoder.encode(account.getPassword()));
         userService.createUser(account);
 
