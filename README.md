@@ -273,7 +273,10 @@ public void onAuthenticationFailure(HttpServletRequest request, HttpServletRespo
 
 ### # 11. Form 인증 - Access Denied
 
-> 인증 거부
+> 인가 예외 발생 시 처리하는 방법
+
+* 인증 시도를 하다가 발생한 예외의 경우 인증을 처리하던 필터가 받아서 예외를 처리하는 것이고, 인가 예외의 경우에는 ExceptionTranslationFilter가 받아서 처리한다.
+* 인증 이후 자원에 접근할 때 가장 큰 역할을 하는 ExceptionTranslationFilter에게 예외를 던져 처리하는데, 이 때 직접 구현한 AccessDeniedHandler를 호출해 예외 발생 시 기능을 수행하는 것이다.
 
 <br/>
 
@@ -310,7 +313,62 @@ public void setErrorPage(String errorPage) {
 
 ### # 14. Ajax 인증 – 흐름 및 개요
 
-![image-20210512002228092](C:\workspace\java\spring-security real project\corespringsecurity\images\image-20210512002228092.png)
+> Ajax 인증 인가 처리에 대한 전체적인 Flow
+
+![image-20210512002228092](./images/image-20210512002228092.png)
+
+* Spring Security의 인증, 인가처리는 모두 필터로 시작해 필터로 끝난다.
+* 필터가 먼저 요청을 받아, 인증 객체 Token에 담아놓고 인증처리를 하게 된다.
+  * 필터가 이 인증 객체를 Manager에게 전달해주고, 실질적인 인증처리를 담당하는 Provider에게 전달한다.
+  * 앞서 본 Form 인증처리와 동일한 과정을 거친다.
+  * 인증이 성공할 경우와 실패할 경우 Handler를 우리가 구현하는 것!!
+* 위의 인증처리가 완료 되면, 이후에는 인가처리를 수행하게 된다.
+* 만약 인증 및 인가에 대한 예외가 발생하면, ExceptionTranslationFilter가 이를 받아 처리한다.
+  * 인증이 실패하면 AjaxUrlAuthenticationEntryPoint를, 자원 접근 거부시에는 AjaxAccessDeniendHandler를 구현해서 인가 처리를 수행한다.
+
+<br/>
+
+<br/>
+
+### # 14. Ajax 인증 – AjaxAuthenticationFilter
+
+> 사용자가 Ajax를 이용해 인증 처리를 할 때, 그것을 받아 인증 처리를 담당할 Ajax 전용 필터
+
+<br/>
+
+* AbstractAuthenticationProcessingFilter 상속
+  * UsernamePasswordAuthenticationFilter도 이걸 상속하고 있다.
+  * 대부분의 인증처리 기능을 이 추상클래스가 하고 있다!
+* 필터 작동 조건
+  * AntPathRequestMatcher("/api/login") 로 요청정보와 매칭하고 요청 방식이 Ajax 이면 필터 작동
+* AjaxAuthenticationToken 생성하여 AuthenticationManager 에게 전달하여 인증처리
+  * 토큰도 직접 구현!
+* Filter 추가
+  * http.addFilterBefore(AjaxAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+
+<br/>
+
+<br/>
+
+### #15. Ajax 인증 – AjaxAuthenticationProvider
+
+> Ajax 인증을 처리하도록 위임하는 기능의 Provider 인터페이스를 구현한다.
+
+* AuthenticationProvider 인터페이스 구현
+* 인증 작동 조건
+  * supports(Class<?> authentication)
+    * ProviderManager 로부터 넘어온 인증객체가 AjaxAuthenticationToken 타입이면 작동
+* 인증 검증이 완료되면 AjaxAuthenticationToken 생성하여 최종 인증 객체 반환
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
 
 <br/>
 
