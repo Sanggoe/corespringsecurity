@@ -352,12 +352,12 @@ public void setErrorPage(String errorPage) {
 
 ### #15. Ajax 인증 – AjaxAuthenticationProvider
 
-> Ajax 인증을 처리하도록 위임하는 기능의 Provider 인터페이스를 구현한다.
+> 실질적으로 Ajax 인증을 처리하는 기능의 Provider를 구현한다.
 
 * AuthenticationProvider 인터페이스 구현
 * 인증 작동 조건
   * supports(Class<?> authentication)
-    * ProviderManager 로부터 넘어온 인증객체가 AjaxAuthenticationToken 타입이면 작동
+    * ProviderManager로부터 넘어온 인증객체가 AjaxAuthenticationToken 타입이면 작동
 * 인증 검증이 완료되면 AjaxAuthenticationToken 생성하여 최종 인증 객체 반환
 
 <br/>
