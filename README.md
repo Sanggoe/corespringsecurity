@@ -350,7 +350,7 @@ public void setErrorPage(String errorPage) {
 
 <br/>
 
-### #15. Ajax 인증 – AjaxAuthenticationProvider
+### # 15. Ajax 인증 – AjaxAuthenticationProvider
 
 > 실질적으로 Ajax 인증을 처리하는 기능의 Provider를 구현한다.
 
@@ -363,6 +363,28 @@ public void setErrorPage(String errorPage) {
 <br/>
 
 <br/>
+
+### # 16. Ajax 인증 – AjaxAuthenticationSuccessHandler		   AjaxAuthenticationFailureHandler
+
+> 인증 성공 및 실패 시 수행하는 Handler
+
+* AjaxAuthenticationSuccessHandler
+  * AuthenticationSuccessHandler 인터페이스 구현
+  * Response Header 설정
+    * response.setStatus(HttpStatus.OK.value());
+    * response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+  * JSON 형식으로 변환하여 인증 객체 리턴 함
+    * objectMapper.writeValue(response.getWriter(), ResponseBody.ok(userDto));
+
+<br/>
+
+* AjaxAuthenticationFailureHandler
+  * AuthenticationFailureHandler 인터페이스 구현
+  * Response Header 설정
+    * response.setStatus(HttpStatus.UNAUTHORIZED.value());
+    * response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+  * JSON 형식으로 변환하여 오류 메시지 리턴 함
+    * objectMapper.writeValue(response.getWriter(), ResponseBody.error(message));
 
 <br/>
 
