@@ -334,8 +334,6 @@ public void setErrorPage(String errorPage) {
 
 > 사용자가 Ajax를 이용해 인증 처리를 할 때, 그것을 받아 인증 처리를 담당할 Ajax 전용 필터
 
-<br/>
-
 * AbstractAuthenticationProcessingFilter 상속
   * UsernamePasswordAuthenticationFilter도 이걸 상속하고 있다.
   * 대부분의 인증처리 기능을 이 추상클래스가 하고 있다!
@@ -366,7 +364,7 @@ public void setErrorPage(String errorPage) {
 
 ### # 16. Ajax 인증 – AjaxAuthenticationSuccessHandler		   AjaxAuthenticationFailureHandler
 
-> 인증 성공 및 실패 시 수행하는 Handler
+> 인증 성공 시 수행하는 Handler
 
 * AjaxAuthenticationSuccessHandler
   * AuthenticationSuccessHandler 인터페이스 구현
@@ -377,6 +375,8 @@ public void setErrorPage(String errorPage) {
     * objectMapper.writeValue(response.getWriter(), ResponseBody.ok(userDto));
 
 <br/>
+
+> 인증 실패 시 수행하는 Handler
 
 * AjaxAuthenticationFailureHandler
   * AuthenticationFailureHandler 인터페이스 구현
@@ -390,9 +390,31 @@ public void setErrorPage(String errorPage) {
 
 <br/>
 
+#### # 17. Ajax 인증 – AjaxLoginUrlAuthenticationEntryPoint		   AjaxAccessDeniedHandler
+
+> 인증되지 않은 사용자 접근 예외의 경우
+
+* AjaxLoginUrlAuthenticationEntryPoint
+  * ExceptionTranslationFilter 에서 인증 예외 시 호출
+  * AuthenticationEntryPoint 인터페이스 구현
+  * 인증 오류 메시와 401 상태 코드 반환
+    * response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+
+<br/>
+
+> 인가되지 않은 사용자 접근 예외의 경우
+
+* AjaxAccessDeniedHandler
+  * ExceptionTranslationFilter 에서 인가 예외 시 호출
+  * AccessDeniedHandler 인터페이스 구현
+  * 인가 오류 메시지와 403 상태 코드 반환
+    * response.sendError(HttpServletResponse. SC_FORBIDDEN, “forbidden");
+
 <br/>
 
 <br/>
+
+
 
 <br/>
 
