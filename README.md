@@ -414,7 +414,18 @@ public void setErrorPage(String errorPage) {
 
 <br/>
 
+#### # 18. Ajax 인증 – DSL 로 Config  설정하기
 
+> DSL : 도메인 특화 언어
+
+* Custom DSLs
+  * AbstractHttpConfigurer
+    * 스프링 시큐리티 초기화 설정 클래스
+    * 필터, 핸들러, 메서드, 속성 등을 한 곳에 정의하여 처리할 수 있는 편리함 제공
+    * public void init(H http) throws Exception -  초기화
+    * public void configure(H http) – 설정
+
+* HttpSecurity 의 apply(C configurer) 메서드 사용
 
 <br/>
 
