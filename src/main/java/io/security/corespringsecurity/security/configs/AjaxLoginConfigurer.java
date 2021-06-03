@@ -29,7 +29,7 @@ public class AjaxLoginConfigurer<H extends HttpSecurityBuilder<H>> extends
     }
 
     @Override
-    public void configure(H http) throws Exception {
+    public void configure(H http) {
 
         if (authenticationManager == null) {
             authenticationManager = http.getSharedObject(AuthenticationManager.class);
@@ -50,6 +50,11 @@ public class AjaxLoginConfigurer<H extends HttpSecurityBuilder<H>> extends
         }
         http.setSharedObject(AjaxLoginProcessingFilter.class, getAuthenticationFilter());
         http.addFilterBefore(getAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+    }
+
+    @Override
+    public AjaxLoginConfigurer<H> loginPage(String loginPage) {
+        return super.loginPage(loginPage);
     }
 
     public AjaxLoginConfigurer<H> successHandlerAjax(AuthenticationSuccessHandler authenticationSuccessHandler) {

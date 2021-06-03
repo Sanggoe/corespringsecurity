@@ -17,7 +17,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @Order(0)
@@ -41,28 +40,29 @@ public class AjaxSecurityCoinfig extends WebSecurityConfigurerAdapter {
                 .antMatcher("/api/**")
                 .authorizeRequests()
                 .antMatchers("/api/messages").hasRole("MANAGER")
-                .anyRequest().authenticated();
-        http
+                .antMatchers("/api/login").permitAll()
+                .anyRequest().authenticated()
+                .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(new AjaxLoginAuthenticationEntryPoint())
                 .accessDeniedHandler(ajaxAccessDeniedHandler());
                 /*.and()
                 .addFilterBefore(ajaxLoginProcessingFilter(), UsernamePasswordAuthenticationFilter.class);*/
 
-        http.csrf().disable();
+        // http.csrf().disable();
 
-        customConfigurerAjax(http);
+        ajaxConfigurer(http);
     }
 
 
-    public void customConfigurerAjax(HttpSecurity http) throws Exception {
+    private void ajaxConfigurer(HttpSecurity http) throws Exception {
         http
                 .apply(new AjaxLoginConfigurer<>())
                 .successHandlerAjax(ajaxAuthenticationSuccessHandler())
                 .failureHandlerAjax(ajaxAuthenticationFailureHandler())
-                .setAuthenticationManager(authenticationManagerBean())
-                .loginProcessingUrl("/api/login");
-
+                .loginPage("/api/login")
+                .loginProcessingUrl("/api/login")
+                .setAuthenticationManager(authenticationManagerBean());
     }
 
     // Ajax 인가 거부 Handler Bean 등록

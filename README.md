@@ -390,7 +390,7 @@ public void setErrorPage(String errorPage) {
 
 <br/>
 
-#### # 17. Ajax 인증 – AjaxLoginUrlAuthenticationEntryPoint		   AjaxAccessDeniedHandler
+### # 17. Ajax 인증 – AjaxLoginUrlAuthenticationEntryPoint		   AjaxAccessDeniedHandler
 
 > 인증되지 않은 사용자 접근 예외의 경우
 
@@ -414,7 +414,7 @@ public void setErrorPage(String errorPage) {
 
 <br/>
 
-#### # 18. Ajax 인증 – DSL 로 Config  설정하기
+### # 18. Ajax 인증 – DSL 로 Config  설정하기
 
 > DSL : 도메인 특화 언어
 
@@ -426,6 +426,22 @@ public void setErrorPage(String errorPage) {
     * public void configure(H http) – 설정
 
 * HttpSecurity 의 apply(C configurer) 메서드 사용
+
+<br/>
+
+<br/>
+
+### # 19. Ajax 인증 - 로그인 Ajax 구현 & CSRF
+
+* 헤더 설정
+  * 전송 방식이 Ajax 인지의 여부를 위한 헤더설정
+    * xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+  * CSRF 헤더 설정
+    * `<meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>`
+    * `<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>`
+    * `var csrfHeader = $('meta[name="_csrf_header"]').attr('content')`
+    * `var csrfToken = $('meta[name="_csrf"]').attr('content’)`
+    * `xhr.setRequestHeader(csrfHeader, csrfToken);`
 
 <br/>
 
