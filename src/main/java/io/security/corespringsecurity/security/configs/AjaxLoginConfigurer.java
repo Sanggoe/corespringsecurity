@@ -12,7 +12,7 @@ import org.springframework.security.web.authentication.session.SessionAuthentica
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
-public class AjaxLoginConfigurer<H extends HttpSecurityBuilder<H>> extends
+public final class AjaxLoginConfigurer<H extends HttpSecurityBuilder<H>> extends
         AbstractAuthenticationFilterConfigurer<H, AjaxLoginConfigurer<H>, AjaxLoginProcessingFilter> {
 
     private AuthenticationSuccessHandler successHandler;
