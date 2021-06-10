@@ -11,7 +11,7 @@ import java.util.Set;
 @Table(name = "ROLE")
 @Getter
 @Setter
-@ToString(exclude = {"users","resourcesSet"})
+@ToString(exclude = {"accounts","resourcesSet"})
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,7 +30,7 @@ public class Role implements Serializable {
     private String roleDesc;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "roleSet")
-    @OrderBy("ordernum desc")
+    @OrderBy("orderNum desc")
     private Set<Resources> resourcesSet = new LinkedHashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "userRoles")

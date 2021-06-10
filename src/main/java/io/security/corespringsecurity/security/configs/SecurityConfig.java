@@ -6,7 +6,7 @@ import io.security.corespringsecurity.security.handler.AjaxAuthenticationSuccess
 import io.security.corespringsecurity.security.handler.FormAccessDeniedHandler;
 import io.security.corespringsecurity.security.metadatasource.UrlFilterInvocationSecurityMetadataSource;
 import io.security.corespringsecurity.security.provider.AjaxAuthenticationProvider;
-import io.security.corespringsecurity.security.provider.CustomAuthenticationProvider;
+import io.security.corespringsecurity.security.provider.FormAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -119,7 +119,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // 구현한 Provider Bean 등록
     @Bean
     public AuthenticationProvider authenticationProvider() {
-        return new CustomAuthenticationProvider(passwordEncoder());
+        return new FormAuthenticationProvider(passwordEncoder());
     }
 
     // 구현한 Provider Bean 등록
@@ -167,7 +167,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return Arrays.asList(new RoleVoter());
     }
 
-    private FilterInvocationSecurityMetadataSource urlFilterInvocationSecurityMetadataSource() {
+    public FilterInvocationSecurityMetadataSource urlFilterInvocationSecurityMetadataSource() {
         return new UrlFilterInvocationSecurityMetadataSource();
     }
 }

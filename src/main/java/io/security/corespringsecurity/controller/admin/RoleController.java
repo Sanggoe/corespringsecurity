@@ -20,7 +20,7 @@ public class RoleController {
     private RoleService roleService;
 
     @GetMapping(value = "/admin/roles")
-    public String getRoles(Model model) throws Exception {
+    public String getRoles(Model model) {
 
         List<Role> roles = roleService.getRoles();
         model.addAttribute("roles", roles);
@@ -29,7 +29,7 @@ public class RoleController {
     }
 
     @GetMapping(value = "/admin/roles/register")
-    public String viewRoles(Model model) throws Exception {
+    public String viewRoles(Model model) {
 
         RoleDto role = new RoleDto();
         model.addAttribute("role", role);
@@ -38,7 +38,7 @@ public class RoleController {
     }
 
     @PostMapping(value = "/admin/roles")
-    public String createRole(RoleDto roleDto) throws Exception {
+    public String createRole(RoleDto roleDto) {
 
         ModelMapper modelMapper = new ModelMapper();
         Role role = modelMapper.map(roleDto, Role.class);
@@ -48,7 +48,7 @@ public class RoleController {
     }
 
     @GetMapping(value = "/admin/roles/{id}")
-    public String getRole(@PathVariable String id, Model model) throws Exception {
+    public String getRole(@PathVariable String id, Model model) {
 
         Role role = roleService.getRole(Long.valueOf(id));
 
@@ -60,7 +60,7 @@ public class RoleController {
     }
 
     @GetMapping(value = "/admin/roles/delete/{id}")
-    public String removeResources(@PathVariable String id, Model model) throws Exception {
+    public String removeResources(@PathVariable String id, Model model) {
 
         Role role = roleService.getRole(Long.valueOf(id));
         roleService.deleteRole(Long.valueOf(id));

@@ -28,7 +28,7 @@ public class AjaxAuthenticationProvider implements AuthenticationProvider {
 
         AccountContext accountContext = (AccountContext) userDetailsService.loadUserByUsername(loginId);
 
-        if (!passwordEncoder.matches(password, accountContext.getAccount().getPassword())) {
+        if (!passwordEncoder.matches(password, accountContext.getPassword())) {
             throw new BadCredentialsException("Invalid password");
         }
 
